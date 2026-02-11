@@ -1,0 +1,17 @@
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/bin/Debug/net8.0/SmartController.Db.deps.json
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/bin/Debug/net8.0/SmartController.Db.runtimeconfig.json
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/bin/Debug/net8.0/SmartController.Db.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/bin/Debug/net8.0/SmartController.Db.pdb
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/bin/Debug/net8.0/SmartController.Shared.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/bin/Debug/net8.0/SmartController.Shared.pdb
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.csproj.AssemblyReference.cache
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.GeneratedMSBuildEditorConfig.editorconfig
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.AssemblyInfoInputs.cache
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.AssemblyInfo.cs
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.csproj.CoreCompileInputs.cache
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartCon.E4A0BD81.Up2Date
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/refint/SmartController.Db.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.pdb
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.genruntimeconfig.cache
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/ref/SmartController.Db.dll

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "s3klmggB4jHgj19HB/l2/ZJN7w6PpizASgUDb7NShqI=",
+  "Source": "SmartController.Api",
+  "BasePath": "_content/SmartController.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

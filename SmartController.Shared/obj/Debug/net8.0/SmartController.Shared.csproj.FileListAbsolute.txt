@@ -1,0 +1,11 @@
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/bin/Debug/net8.0/SmartController.Shared.deps.json
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/bin/Debug/net8.0/SmartController.Shared.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/bin/Debug/net8.0/SmartController.Shared.pdb
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/SmartController.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/SmartController.Shared.AssemblyInfoInputs.cache
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/SmartController.Shared.AssemblyInfo.cs
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/SmartController.Shared.csproj.CoreCompileInputs.cache
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/SmartController.Shared.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/refint/SmartController.Shared.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/SmartController.Shared.pdb
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/ref/SmartController.Shared.dll

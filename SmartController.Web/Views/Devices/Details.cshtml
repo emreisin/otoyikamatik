@@ -1,0 +1,107 @@
+@model SmartController.Db.Entities.Device
+@{ ViewData["Title"] = "Cihaz Detay"; }
+
+<div class="container-fluid">
+    <h2 class="mb-4">@Model.DeviceName</h2>
+    <p class="text-muted">@Model.DeviceId</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">Cihaz Bilgileri</div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr><th>Şube</th><td>@Model.Sube?.Ad</td></tr>
+                        <tr><th>Peron</th><td>@Model.Peron?.PeronNo</td></tr>
+                        <tr><th>Firmware</th><td>@Model.FirmwareVersion</td></tr>
+                        <tr>
+                            <th>Durum</th>
+                            <td>
+                                @if (Model.IsOnline)
+                                {
+                                    <span class="badge bg-success">Online</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Offline</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr><th>Son Bağlantı</th><td>@Model.LastSeen?.ToString("dd.MM.yyyy HH:mm:ss")</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">Sayaçlar</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead><tr><th>Tip</th><th>Toplam</th><th>Son Artış</th></tr></thead>
+                        <tbody>
+                            @foreach (var counter in Model.Counters)
+                            {
+                                <tr>
+                                    <td>@counter.CounterType</td>
+                                    <td>@counter.TotalCount</td>
+                                    <td>@counter.LastIncrementAt?.ToString("dd.MM.yyyy HH:mm")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">Komut Gönder</div>
+                <div class="card-body">
+                    <form asp-action="SendCommand" method="post">
+                        <input type="hidden" name="deviceId" value="@Model.DeviceId" />
+                        <div class="mb-3">
+                            <select name="commandText" class="form-select">
+                                <option value="{DATACHECK}">DATACHECK - Durum Sorgula</option>
+                                <option value="{UPDATE}">UPDATE - Firmware Güncelle</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gönder</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Son Durum Logları</div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <thead><tr><th>Tarih</th><th>WiFi</th><th>Sinyal</th><th>IP</th><th>Uptime</th></tr></thead>
+                        <tbody>
+                            @foreach (var log in Model.StatusLogs)
+                            {
+                                <tr>
+                                    <td>@log.CreatedAt.ToString("dd.MM HH:mm")</td>
+                                    <td>@log.WifiSsid</td>
+                                    <td>
+                                        @if (log.WifiSignal > -50)
+                                        {
+                                            <span class="badge bg-success">@log.WifiSignal dBm</span>
+                                        }
+                                        else if (log.WifiSignal > -70)
+                                        {
+                                            <span class="badge bg-warning">@log.WifiSignal dBm</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">@log.WifiSignal dBm</span>
+                                        }
+                                    </td>
+                                    <td>@log.IpAddress</td>
+                                    <td>@log.Uptime</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

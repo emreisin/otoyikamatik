@@ -1,0 +1,48 @@
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using SmartController.Db;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<SmartControllerDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var app = builder.Build();
+
+// Auto Migration & Seed
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<SmartControllerDbContext>();
+    var retries = 10;
+    while (retries > 0)
+    {
+        try
+        {
+            db.Database.Migrate();
+            await DataSeeder.SeedAsync(db);
+            break;
+        }
+        catch (Exception ex)
+        {
+            retries--;
+            Console.WriteLine($"Database not ready, retrying... ({retries} left) - {ex.Message}");
+            await Task.Delay(3000);
+        }
+    }
+}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();

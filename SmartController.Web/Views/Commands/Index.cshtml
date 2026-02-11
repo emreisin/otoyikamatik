@@ -1,0 +1,49 @@
+@model List<SmartController.Db.Entities.Command>
+@{ ViewData["Title"] = "Komutlar"; }
+
+<div class="container-fluid">
+    <h2 class="mb-4">Komut Geçmişi</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cihaz</th>
+                        <th>Komut</th>
+                        <th>Durum</th>
+                        <th>Oluşturulma</th>
+                        <th>Teslim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cmd in Model)
+                    {
+                        <tr>
+                            <td>@cmd.Id</td>
+                            <td><code>@cmd.DeviceId</code></td>
+                            <td>@cmd.CommandText</td>
+                            <td>
+                                @switch (cmd.Status)
+                                {
+                                    case SmartController.Shared.Enums.CommandStatus.Pending:
+                                        <span class="badge bg-warning">Bekliyor</span>
+                                        break;
+                                    case SmartController.Shared.Enums.CommandStatus.Delivered:
+                                        <span class="badge bg-success">Teslim Edildi</span>
+                                        break;
+                                    case SmartController.Shared.Enums.CommandStatus.Failed:
+                                        <span class="badge bg-danger">Başarısız</span>
+                                        break;
+                                }
+                            </td>
+                            <td>@cmd.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@cmd.DeliveredAt?.ToString("dd.MM.yyyy HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

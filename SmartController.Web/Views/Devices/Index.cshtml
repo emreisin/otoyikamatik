@@ -1,0 +1,70 @@
+@model List<SmartController.Db.Entities.Device>
+@{ ViewData["Title"] = "Cihazlar"; }
+
+<div class="container-fluid">
+    <h2 class="mb-4">Cihaz Listesi</h2>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <select name="subeId" class="form-select">
+                        <option value="">Tüm Şubeler</option>
+                        @foreach (var sube in ViewBag.Subeler as List<SmartController.Db.Entities.Sube>)
+                        {
+                            <option value="@sube.Id">@sube.Ad</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Filtrele</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Device ID</th>
+                        <th>Cihaz Adı</th>
+                        <th>Şube</th>
+                        <th>Peron</th>
+                        <th>Firmware</th>
+                        <th>Durum</th>
+                        <th>Son Bağlantı</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var device in Model)
+                    {
+                        <tr>
+                            <td><code>@device.DeviceId</code></td>
+                            <td>@device.DeviceName</td>
+                            <td>@device.Sube?.Ad</td>
+                            <td>@device.Peron?.PeronNo</td>
+                            <td>@device.FirmwareVersion</td>
+                            <td>
+                                @if (device.IsOnline)
+                                {
+                                    <span class="badge bg-success">Online</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Offline</span>
+                                }
+                            </td>
+                            <td>@device.LastSeen?.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@device.DeviceId" class="btn btn-sm btn-info">Detay</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

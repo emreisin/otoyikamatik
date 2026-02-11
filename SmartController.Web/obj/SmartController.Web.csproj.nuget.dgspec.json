@@ -1,0 +1,226 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/emreisin/Desktop/otoyikamatik/SmartController.Web/SmartController.Web.csproj": {}
+  },
+  "projects": {
+    "/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/SmartController.Db.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/SmartController.Db.csproj",
+        "projectName": "SmartController.Db",
+        "projectPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/SmartController.Db.csproj",
+        "packagesPath": "/Users/emreisin/.nuget/packages/",
+        "outputPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/emreisin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://pkgs.dev.azure.com/anadoluedu/_packaging/anadoluedu/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/SmartController.Shared.csproj": {
+                "projectPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/SmartController.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/SmartController.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/SmartController.Shared.csproj",
+        "projectName": "SmartController.Shared",
+        "projectPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/SmartController.Shared.csproj",
+        "packagesPath": "/Users/emreisin/.nuget/packages/",
+        "outputPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/emreisin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://pkgs.dev.azure.com/anadoluedu/_packaging/anadoluedu/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/emreisin/Desktop/otoyikamatik/SmartController.Web/SmartController.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Web/SmartController.Web.csproj",
+        "projectName": "SmartController.Web",
+        "projectPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Web/SmartController.Web.csproj",
+        "packagesPath": "/Users/emreisin/.nuget/packages/",
+        "outputPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Web/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/emreisin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://pkgs.dev.azure.com/anadoluedu/_packaging/anadoluedu/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/SmartController.Db.csproj": {
+                "projectPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/SmartController.Db.csproj"
+              },
+              "/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/SmartController.Shared.csproj": {
+                "projectPath": "/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/SmartController.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Cookies": {
+              "target": "Package",
+              "version": "[2.3.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
