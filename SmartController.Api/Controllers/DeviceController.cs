@@ -17,13 +17,18 @@ public class DeviceController : ControllerBase
     [HttpPost("status/{customerSuffix}")]
     public async Task<IActionResult> PostStatus(string customerSuffix, [FromBody] DeviceStatusDto dto)
     {
+        // Distributor'ı bul
+        var distributor = await _db.Distributors.FirstOrDefaultAsync(d => d.Kod == customerSuffix);
+        if (distributor == null)
+            return BadRequest(new { error = "Invalid customerSuffix" });
+
         var device = await _db.Devices.FirstOrDefaultAsync(d => d.DeviceId == dto.DeviceId);
         if (device == null)
         {
-            var sube = await _db.Subeler.FirstOrDefaultAsync(s => s.Kod == dto.Sube);
+            var sube = await _db.Subeler.FirstOrDefaultAsync(s => s.Kod == dto.Sube && s.DistributorId == distributor.Id);
             if (sube == null)
             {
-                sube = new Sube { Kod = dto.Sube, Ad = dto.Sube };
+                sube = new Sube { DistributorId = distributor.Id, Kod = dto.Sube, Ad = dto.Sube };
                 _db.Subeler.Add(sube);
                 await _db.SaveChangesAsync();
             }
