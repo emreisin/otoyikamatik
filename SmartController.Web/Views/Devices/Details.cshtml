@@ -2,8 +2,26 @@
 @{ ViewData["Title"] = "Cihaz Detay"; }
 
 <div class="container-fluid">
-    <h2 class="mb-4">@Model.DeviceName</h2>
-    <p class="text-muted">@Model.DeviceId</p>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>@Model.DeviceName</h2>
+            <p class="text-muted mb-0">@Model.DeviceId</p>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-secondary">Geri</a>
+            @if (ViewBag.IsAdmin == true)
+            {
+                <form asp-action="Delete" asp-route-id="@Model.DeviceId" method="post" class="d-inline" onsubmit="return confirm('Bu cihazı ve tüm verilerini silmek istediğinize emin misiniz? Bu işlem geri alınamaz!')">
+                    <button type="submit" class="btn btn-danger">Cihazı Sil</button>
+                </form>
+            }
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
 
     <div class="row">
         <div class="col-md-6">

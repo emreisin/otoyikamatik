@@ -28,6 +28,7 @@ public class DevicesController : BaseController
             subelerQuery = subelerQuery.Where(s => s.DistributorId == DistributorId);
 
         ViewBag.Subeler = await subelerQuery.ToListAsync();
+        ViewBag.IsAdmin = IsAdmin;
         return View(await query.ToListAsync());
     }
 
@@ -47,7 +48,75 @@ public class DevicesController : BaseController
         var device = await query.FirstOrDefaultAsync(d => d.DeviceId == id);
         if (device == null) return NotFound();
 
+        ViewBag.IsAdmin = IsAdmin;
         return View(device);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        if (!IsAdmin) return Forbid();
+
+        ViewBag.Subeler = await _db.Subeler.Include(s => s.Distributor).ToListAsync();
+        ViewBag.Peronlar = await _db.Peronlar.Include(p => p.Sube).ToListAsync();
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(string deviceId, string deviceName, int subeId, int peronId, string? firmwareVersion)
+    {
+        if (!IsAdmin) return Forbid();
+
+        // DeviceId kontrolü
+        if (await _db.Devices.AnyAsync(d => d.DeviceId == deviceId))
+        {
+            TempData["Error"] = "Bu Device ID zaten mevcut";
+            return RedirectToAction(nameof(Create));
+        }
+
+        var device = new Device
+        {
+            DeviceId = deviceId,
+            DeviceName = deviceName,
+            SubeId = subeId,
+            PeronId = peronId,
+            FirmwareVersion = firmwareVersion ?? "",
+            IsOnline = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _db.Devices.Add(device);
+        await _db.SaveChangesAsync();
+
+        TempData["Success"] = "Cihaz başarıyla eklendi";
+        return RedirectToAction(nameof(Details), new { id = deviceId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(string id)
+    {
+        if (!IsAdmin) return Forbid();
+
+        var device = await _db.Devices
+            .Include(d => d.StatusLogs)
+            .Include(d => d.RawDataLogs)
+            .Include(d => d.Counters)
+            .Include(d => d.Commands)
+            .FirstOrDefaultAsync(d => d.DeviceId == id);
+
+        if (device == null) return NotFound();
+
+        // İlişkili verileri sil
+        _db.DeviceStatusLogs.RemoveRange(device.StatusLogs);
+        _db.DeviceRawData.RemoveRange(device.RawDataLogs);
+        _db.DeviceCounters.RemoveRange(device.Counters);
+        _db.Commands.RemoveRange(device.Commands);
+        _db.Devices.Remove(device);
+
+        await _db.SaveChangesAsync();
+
+        TempData["Success"] = "Cihaz başarıyla silindi";
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpPost]

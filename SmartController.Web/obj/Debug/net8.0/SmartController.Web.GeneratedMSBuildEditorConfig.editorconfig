@@ -26,6 +26,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29tbWFuZHMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/emreisin/Desktop/otoyikamatik/SmartController.Web/Views/Devices/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGV2aWNlcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/emreisin/Desktop/otoyikamatik/SmartController.Web/Views/Devices/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGV2aWNlcy9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

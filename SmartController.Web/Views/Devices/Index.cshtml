@@ -2,7 +2,18 @@
 @{ ViewData["Title"] = "Cihazlar"; }
 
 <div class="container-fluid">
-    <h2 class="mb-4">Cihaz Listesi</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Cihaz Listesi</h2>
+        @if (ViewBag.IsAdmin == true)
+        {
+            <a asp-action="Create" class="btn btn-primary">Yeni Cihaz Ekle</a>
+        }
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
 
     <div class="card mb-3">
         <div class="card-body">

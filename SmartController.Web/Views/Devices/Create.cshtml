@@ -1,0 +1,86 @@
+@{ ViewData["Title"] = "Yeni Cihaz"; }
+
+<div class="container-fluid">
+    <h2 class="mb-4">Yeni Cihaz Ekle</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Device ID *</label>
+                            <input type="text" name="deviceId" class="form-control" required placeholder="Örn: SCE05A1BA0FE99" maxlength="50">
+                            <small class="text-muted">Cihazın benzersiz kimliği</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Cihaz Adı *</label>
+                            <input type="text" name="deviceName" class="form-control" required placeholder="Örn: SmartController-01">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Şube *</label>
+                            <select name="subeId" id="subeSelect" class="form-select" required onchange="filterPeronlar()">
+                                <option value="">Şube Seçin</option>
+                                @foreach (var sube in ViewBag.Subeler as List<SmartController.Db.Entities.Sube>)
+                                {
+                                    <option value="@sube.Id" data-distributor="@sube.Distributor?.Ad">@sube.Ad (@sube.Distributor?.Ad)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Peron *</label>
+                            <select name="peronId" id="peronSelect" class="form-select" required>
+                                <option value="">Önce şube seçin</option>
+                                @foreach (var peron in ViewBag.Peronlar as List<SmartController.Db.Entities.Peron>)
+                                {
+                                    <option value="@peron.Id" data-sube="@peron.SubeId" style="display:none;">Peron @peron.PeronNo</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Firmware Versiyonu</label>
+                            <input type="text" name="firmwareVersion" class="form-control" placeholder="Örn: 2.1.1">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cihaz Ekle</button>
+                        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5>Bilgi</h5>
+                    <hr>
+                    <p>Cihaz ekledikten sonra, cihaz API'ye bağlandığında otomatik olarak online durumuna geçecektir.</p>
+                    <p>Device ID, cihazın MAC adresinden veya benzersiz bir tanımlayıcıdan oluşmalıdır.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+function filterPeronlar() {
+    var subeId = document.getElementById('subeSelect').value;
+    var peronSelect = document.getElementById('peronSelect');
+    var options = peronSelect.querySelectorAll('option[data-sube]');
+    
+    peronSelect.value = '';
+    
+    options.forEach(function(opt) {
+        if (opt.getAttribute('data-sube') === subeId) {
+            opt.style.display = 'block';
+        } else {
+            opt.style.display = 'none';
+        }
+    });
+}
+</script>
+}
