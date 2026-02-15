@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SmartController.Api.Services;
 using SmartController.Db;
 using SmartController.Db.Entities;
 using SmartController.Shared.DTOs;
@@ -54,14 +55,46 @@ public class EspController : ControllerBase
         device.LastSeen = DateTime.UtcNow;
         device.IsOnline = true;
 
-        _db.DeviceRawData.Add(new DeviceRawData
+        // Raw data'yı kaydet
+        var rawDataEntity = new DeviceRawData
         {
             DeviceId = dto.DeviceId,
             RawData = dto.RawData,
             Parsed = false
-        });
+        };
+        _db.DeviceRawData.Add(rawDataEntity);
+
+        // Raw data'yı parse et ve sayaçları güncelle
+        var parsedCounters = RawDataParser.Parse(dto.RawData);
+        if (parsedCounters.Count > 0)
+        {
+            rawDataEntity.Parsed = true;
+
+            foreach (var parsed in parsedCounters)
+            {
+                var counter = await _db.DeviceCounters
+                    .FirstOrDefaultAsync(c => c.DeviceId == dto.DeviceId && c.CounterType == parsed.Channel);
+
+                if (counter == null)
+                {
+                    counter = new DeviceCounter
+                    {
+                        DeviceId = dto.DeviceId,
+                        CounterType = parsed.Channel,
+                        TotalCount = parsed.Count,
+                        LastIncrementAt = DateTime.UtcNow
+                    };
+                    _db.DeviceCounters.Add(counter);
+                }
+                else
+                {
+                    counter.TotalCount = parsed.Count;
+                    counter.LastIncrementAt = DateTime.UtcNow;
+                }
+            }
+        }
 
         await _db.SaveChangesAsync();
-        return Ok(new { success = true });
+        return Ok(new { success = true, parsed = parsedCounters.Count });
     }
 }

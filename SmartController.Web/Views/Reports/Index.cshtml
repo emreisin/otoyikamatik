@@ -1,0 +1,85 @@
+@model List<SmartController.Db.Entities.Report>
+@{ ViewData["Title"] = "Raporlar"; }
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Raporlar</h2>
+        <a asp-action="Create" class="btn btn-primary">Yeni Rapor</a>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <select name="subeId" class="form-select">
+                        <option value="">Tüm Şubeler</option>
+                        @foreach (var sube in ViewBag.Subeler as List<SmartController.Db.Entities.Sube>)
+                        {
+                            <option value="@sube.Id" selected="@(ViewBag.SelectedSubeId != null && (int)ViewBag.SelectedSubeId == sube.Id)">@sube.Ad</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-secondary">Filtrele</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Şube</th>
+                        <th>Tip</th>
+                        <th>Tarih</th>
+                        <th>Oluşturan</th>
+                        <th>Kaynak</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var report in Model)
+                    {
+                        <tr>
+                            <td>@report.Id</td>
+                            <td>@report.Sube?.Ad</td>
+                            <td>
+                                @if (report.ReportType == SmartController.Shared.Enums.ReportType.X)
+                                {
+                                    <span class="badge bg-info">X Raporu</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Z Raporu</span>
+                                }
+                            </td>
+                            <td>@report.ReportDate.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@report.CreatedBy?.Ad @report.CreatedBy?.Soyad</td>
+                            <td>
+                                @if (report.IsAutomatic)
+                                {
+                                    <span class="badge bg-secondary">Otomatik</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary">Manuel</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@report.Id" class="btn btn-sm btn-info">Detay</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

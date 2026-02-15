@@ -17,6 +17,9 @@ public class SmartControllerDbContext : DbContext
     public DbSet<DeviceCounter> DeviceCounters => Set<DeviceCounter>();
     public DbSet<Command> Commands => Set<Command>();
     public DbSet<FirmwareVersion> FirmwareVersions => Set<FirmwareVersion>();
+    public DbSet<Report> Reports => Set<Report>();
+    public DbSet<ReportDetail> ReportDetails => Set<ReportDetail>();
+    public DbSet<ScheduledJob> ScheduledJobs => Set<ScheduledJob>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -92,6 +95,27 @@ public class SmartControllerDbContext : DbContext
             e.HasKey(f => f.Id);
             e.Property(f => f.Version).HasMaxLength(20);
             e.HasIndex(f => f.Version).IsUnique();
+        });
+
+        modelBuilder.Entity<Report>(e =>
+        {
+            e.HasKey(r => r.Id);
+            e.HasOne(r => r.Sube).WithMany().HasForeignKey(r => r.SubeId);
+            e.HasOne(r => r.CreatedBy).WithMany().HasForeignKey(r => r.CreatedByUserId);
+            e.HasIndex(r => new { r.SubeId, r.ReportDate });
+        });
+
+        modelBuilder.Entity<ReportDetail>(e =>
+        {
+            e.HasKey(r => r.Id);
+            e.HasOne(r => r.Report).WithMany(r => r.Details).HasForeignKey(r => r.ReportId);
+            e.HasOne(r => r.Device).WithMany().HasForeignKey(r => r.DeviceId);
+        });
+
+        modelBuilder.Entity<ScheduledJob>(e =>
+        {
+            e.HasKey(j => j.Id);
+            e.HasOne(j => j.Sube).WithMany().HasForeignKey(j => j.SubeId);
         });
     }
 }

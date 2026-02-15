@@ -71,14 +71,21 @@ public static class DataSeeder
         db.Devices.AddRange(device1, device2, device3, device4, device5);
         await db.SaveChangesAsync();
 
-        // Sayaçlar
+        // Sayaçlar (Ödeme Kanalları: 0=Dijital, 1=Jeton, 2=Kart, 3=Nakit, 4=QRKod)
         db.DeviceCounters.AddRange(
-            new DeviceCounter { DeviceId = device1.DeviceId, CounterType = CounterType.Su, TotalCount = 1250, LastIncrementAt = DateTime.UtcNow },
-            new DeviceCounter { DeviceId = device1.DeviceId, CounterType = CounterType.Kopuk, TotalCount = 890, LastIncrementAt = DateTime.UtcNow },
-            new DeviceCounter { DeviceId = device2.DeviceId, CounterType = CounterType.Su, TotalCount = 750, LastIncrementAt = DateTime.UtcNow.AddHours(-5) },
-            new DeviceCounter { DeviceId = device3.DeviceId, CounterType = CounterType.Su, TotalCount = 2100, LastIncrementAt = DateTime.UtcNow },
-            new DeviceCounter { DeviceId = device4.DeviceId, CounterType = CounterType.Su, TotalCount = 3200, LastIncrementAt = DateTime.UtcNow },
-            new DeviceCounter { DeviceId = device5.DeviceId, CounterType = CounterType.Su, TotalCount = 1800, LastIncrementAt = DateTime.UtcNow }
+            new DeviceCounter { DeviceId = device1.DeviceId, CounterType = CounterType.Dijital, TotalCount = 450, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device1.DeviceId, CounterType = CounterType.Jeton, TotalCount = 320, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device1.DeviceId, CounterType = CounterType.Kart, TotalCount = 280, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device1.DeviceId, CounterType = CounterType.Nakit, TotalCount = 150, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device1.DeviceId, CounterType = CounterType.QRKod, TotalCount = 50, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device2.DeviceId, CounterType = CounterType.Jeton, TotalCount = 500, LastIncrementAt = DateTime.UtcNow.AddHours(-5) },
+            new DeviceCounter { DeviceId = device2.DeviceId, CounterType = CounterType.Nakit, TotalCount = 250, LastIncrementAt = DateTime.UtcNow.AddHours(-5) },
+            new DeviceCounter { DeviceId = device3.DeviceId, CounterType = CounterType.Kart, TotalCount = 1200, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device3.DeviceId, CounterType = CounterType.QRKod, TotalCount = 900, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device4.DeviceId, CounterType = CounterType.Dijital, TotalCount = 800, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device4.DeviceId, CounterType = CounterType.Jeton, TotalCount = 1400, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device5.DeviceId, CounterType = CounterType.Nakit, TotalCount = 600, LastIncrementAt = DateTime.UtcNow },
+            new DeviceCounter { DeviceId = device5.DeviceId, CounterType = CounterType.Kart, TotalCount = 1200, LastIncrementAt = DateTime.UtcNow }
         );
 
         // Status Logları

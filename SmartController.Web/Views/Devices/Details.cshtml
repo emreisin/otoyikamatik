@@ -33,15 +33,34 @@
             </div>
 
             <div class="card mb-3">
-                <div class="card-header">Sayaçlar</div>
+                <div class="card-header">Ödeme Kanalı Sayaçları</div>
                 <div class="card-body">
                     <table class="table">
-                        <thead><tr><th>Tip</th><th>Toplam</th><th>Son Artış</th></tr></thead>
+                        <thead><tr><th>Ödeme Kanalı</th><th>Toplam</th><th>Son İşlem</th></tr></thead>
                         <tbody>
                             @foreach (var counter in Model.Counters)
                             {
                                 <tr>
-                                    <td>@counter.CounterType</td>
+                                    <td>
+                                        @switch (counter.CounterType)
+                                        {
+                                            case SmartController.Shared.Enums.CounterType.Dijital:
+                                                <span class="badge bg-primary">Dijital</span>
+                                                break;
+                                            case SmartController.Shared.Enums.CounterType.Jeton:
+                                                <span class="badge bg-secondary">Jeton</span>
+                                                break;
+                                            case SmartController.Shared.Enums.CounterType.Kart:
+                                                <span class="badge bg-info">Kart</span>
+                                                break;
+                                            case SmartController.Shared.Enums.CounterType.Nakit:
+                                                <span class="badge bg-success">Nakit</span>
+                                                break;
+                                            case SmartController.Shared.Enums.CounterType.QRKod:
+                                                <span class="badge bg-warning text-dark">QR Kod</span>
+                                                break;
+                                        }
+                                    </td>
                                     <td>@counter.TotalCount</td>
                                     <td>@counter.LastIncrementAt?.ToString("dd.MM.yyyy HH:mm")</td>
                                 </tr>
@@ -54,17 +73,33 @@
 
         <div class="col-md-6">
             <div class="card mb-3">
-                <div class="card-header">Komut Gönder</div>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Komutlar</span>
+                    <form asp-action="SendCommand" method="post" class="d-inline">
+                        <input type="hidden" name="deviceId" value="@Model.DeviceId" />
+                        <input type="hidden" name="commandText" value="{CT}" />
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Gün sonu yapılacak. Sayaçlar sıfırlanacak. Emin misiniz?')">
+                            Gün Sonu (CT)
+                        </button>
+                    </form>
+                </div>
                 <div class="card-body">
                     <form asp-action="SendCommand" method="post">
                         <input type="hidden" name="deviceId" value="@Model.DeviceId" />
-                        <div class="mb-3">
-                            <select name="commandText" class="form-select">
-                                <option value="{DATACHECK}">DATACHECK - Durum Sorgula</option>
-                                <option value="{UPDATE}">UPDATE - Firmware Güncelle</option>
-                            </select>
+                        <div class="row g-2">
+                            <div class="col-8">
+                                <select name="commandText" class="form-select">
+                                    <option value="{AT}">AT - Tüm Sayaçları Getir</option>
+                                    <option value="{AP}">AP - Tüm Parametreleri Getir</option>
+                                    <option value="{WE}">WE - WDT Etkinleştir</option>
+                                    <option value="{WD}">WD - WDT Devre Dışı</option>
+                                    <option value="{CT}">CT - Sayaçları Sıfırla</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary w-100">Gönder</button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Gönder</button>
                     </form>
                 </div>
             </div>

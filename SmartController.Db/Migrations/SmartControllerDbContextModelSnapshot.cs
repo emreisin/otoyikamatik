@@ -290,6 +290,110 @@ namespace SmartController.Db.Migrations
                     b.ToTable("Peronlar");
                 });
 
+            modelBuilder.Entity("SmartController.Db.Entities.Report", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsAutomatic")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ReportDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ReportType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("SubeId", "ReportDate");
+
+                    b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("SmartController.Db.Entities.ReportDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CountValue")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("CounterType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("DeviceId")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<long>("ReportId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeviceId");
+
+                    b.HasIndex("ReportId");
+
+                    b.ToTable("ReportDetails");
+                });
+
+            modelBuilder.Entity("SmartController.Db.Entities.ScheduledJob", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("DayOfMonth")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("DayOfWeek")
+                        .HasColumnType("integer");
+
+                    b.Property<TimeOnly>("ExecutionTime")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<int>("Frequency")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastExecutedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("SubeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubeId");
+
+                    b.ToTable("ScheduledJobs");
+                });
+
             modelBuilder.Entity("SmartController.Db.Entities.Sube", b =>
                 {
                     b.Property<int>("Id")
@@ -454,6 +558,55 @@ namespace SmartController.Db.Migrations
                     b.Navigation("Sube");
                 });
 
+            modelBuilder.Entity("SmartController.Db.Entities.Report", b =>
+                {
+                    b.HasOne("SmartController.Db.Entities.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartController.Db.Entities.Sube", "Sube")
+                        .WithMany()
+                        .HasForeignKey("SubeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("Sube");
+                });
+
+            modelBuilder.Entity("SmartController.Db.Entities.ReportDetail", b =>
+                {
+                    b.HasOne("SmartController.Db.Entities.Device", "Device")
+                        .WithMany()
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartController.Db.Entities.Report", "Report")
+                        .WithMany("Details")
+                        .HasForeignKey("ReportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Device");
+
+                    b.Navigation("Report");
+                });
+
+            modelBuilder.Entity("SmartController.Db.Entities.ScheduledJob", b =>
+                {
+                    b.HasOne("SmartController.Db.Entities.Sube", "Sube")
+                        .WithMany()
+                        .HasForeignKey("SubeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sube");
+                });
+
             modelBuilder.Entity("SmartController.Db.Entities.Sube", b =>
                 {
                     b.HasOne("SmartController.Db.Entities.Distributor", "Distributor")
@@ -495,6 +648,11 @@ namespace SmartController.Db.Migrations
             modelBuilder.Entity("SmartController.Db.Entities.Peron", b =>
                 {
                     b.Navigation("Devices");
+                });
+
+            modelBuilder.Entity("SmartController.Db.Entities.Report", b =>
+                {
+                    b.Navigation("Details");
                 });
 
             modelBuilder.Entity("SmartController.Db.Entities.Sube", b =>

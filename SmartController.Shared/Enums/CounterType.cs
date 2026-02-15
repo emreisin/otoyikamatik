@@ -2,6 +2,9 @@ namespace SmartController.Shared.Enums;
 
 public enum CounterType
 {
-    Su = 0,
-    Kopuk = 1
+    Dijital = 0,
+    Jeton = 1,
+    Kart = 2,
+    Nakit = 3,
+    QRKod = 4
 }

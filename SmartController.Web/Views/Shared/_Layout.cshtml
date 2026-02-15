@@ -23,6 +23,8 @@
                 <a asp-controller="Home" asp-action="Index">Dashboard</a>
                 <a asp-controller="Devices" asp-action="Index">Cihazlar</a>
                 <a asp-controller="Commands" asp-action="Index">Komutlar</a>
+                <a asp-controller="Reports" asp-action="Index">Raporlar</a>
+                <a asp-controller="Schedules" asp-action="Index">Zamanlanmış Görevler</a>
                 <div class="user-info mt-auto p-3">
                     <small class="text-muted d-block">@User.Identity?.Name</small>
                     <small class="text-muted d-block mb-2">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</small>

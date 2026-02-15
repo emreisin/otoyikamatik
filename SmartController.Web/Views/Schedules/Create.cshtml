@@ -1,0 +1,83 @@
+@{ ViewData["Title"] = "Yeni Zamanlanmış Görev"; }
+
+<div class="container-fluid">
+    <h2 class="mb-4">Yeni Zamanlanmış Görev</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Şube</label>
+                            <select name="subeId" class="form-select" required>
+                                <option value="">Şube Seçin</option>
+                                @foreach (var sube in ViewBag.Subeler as List<SmartController.Db.Entities.Sube>)
+                                {
+                                    <option value="@sube.Id">@sube.Ad</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Sıklık</label>
+                            <select name="frequency" id="frequency" class="form-select" required onchange="toggleFields()">
+                                <option value="0">Günlük</option>
+                                <option value="1">Haftalık</option>
+                                <option value="2">Aylık</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="dayOfWeekGroup" style="display:none;">
+                            <label class="form-label">Gün</label>
+                            <select name="dayOfWeek" class="form-select">
+                                <option value="1">Pazartesi</option>
+                                <option value="2">Salı</option>
+                                <option value="3">Çarşamba</option>
+                                <option value="4">Perşembe</option>
+                                <option value="5">Cuma</option>
+                                <option value="6">Cumartesi</option>
+                                <option value="0">Pazar</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="dayOfMonthGroup" style="display:none;">
+                            <label class="form-label">Ayın Günü</label>
+                            <select name="dayOfMonth" class="form-select">
+                                @for (int i = 1; i <= 28; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Çalışma Saati</label>
+                            <input type="time" name="executionTime" class="form-control" value="23:00" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Oluştur</button>
+                        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5>Zamanlanmış Görev Nedir?</h5>
+                    <hr>
+                    <p>Belirlediğiniz zamanda otomatik olarak Z Raporu oluşturur ve tüm cihazlara sayaç sıfırlama komutu gönderir.</p>
+                    <p><strong>Günlük:</strong> Her gün belirlenen saatte çalışır.</p>
+                    <p><strong>Haftalık:</strong> Haftanın belirlenen gününde çalışır.</p>
+                    <p><strong>Aylık:</strong> Ayın belirlenen gününde çalışır (1-28 arası).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+function toggleFields() {
+    var freq = document.getElementById('frequency').value;
+    document.getElementById('dayOfWeekGroup').style.display = freq === '1' ? 'block' : 'none';
+    document.getElementById('dayOfMonthGroup').style.display = freq === '2' ? 'block' : 'none';
+}
+</script>
+}

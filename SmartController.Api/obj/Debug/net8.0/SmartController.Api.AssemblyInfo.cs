@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartController.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b3a97a274ef99d65b66c83ee1014e93c74ad88a")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartController.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartController.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

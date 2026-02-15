@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using SmartController.Api.Services;
 using SmartController.Db;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<SmartControllerDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Zamanlanmış görev servisi
+builder.Services.AddHostedService<ScheduledJobService>();
+
+// Cihaz durumu kontrol servisi
+builder.Services.AddHostedService<DeviceStatusService>();
 
 var app = builder.Build();
 

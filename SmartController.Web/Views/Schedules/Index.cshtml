@@ -1,0 +1,76 @@
+@model List<SmartController.Db.Entities.ScheduledJob>
+@{ ViewData["Title"] = "Zamanlanmış Görevler"; }
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Zamanlanmış Görevler (Otomatik Z Raporu)</h2>
+        <a asp-action="Create" class="btn btn-primary">Yeni Görev</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Şube</th>
+                        <th>Sıklık</th>
+                        <th>Çalışma Zamanı</th>
+                        <th>Durum</th>
+                        <th>Son Çalışma</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var job in Model)
+                    {
+                        <tr>
+                            <td>@job.Sube?.Ad</td>
+                            <td>
+                                @switch (job.Frequency)
+                                {
+                                    case SmartController.Shared.Enums.ScheduleFrequency.Daily:
+                                        <span>Günlük</span>
+                                        break;
+                                    case SmartController.Shared.Enums.ScheduleFrequency.Weekly:
+                                        var days = new[] { "Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi" };
+                                        <span>Haftalık (@(job.DayOfWeek.HasValue ? days[job.DayOfWeek.Value] : "-"))</span>
+                                        break;
+                                    case SmartController.Shared.Enums.ScheduleFrequency.Monthly:
+                                        <span>Aylık (Ayın @(job.DayOfMonth).)</span>
+                                        break;
+                                }
+                            </td>
+                            <td>@job.ExecutionTime.ToString("HH:mm")</td>
+                            <td>
+                                @if (job.IsActive)
+                                {
+                                    <span class="badge bg-success">Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Pasif</span>
+                                }
+                            </td>
+                            <td>@job.LastExecutedAt?.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>
+                                <form asp-action="Toggle" asp-route-id="@job.Id" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm @(job.IsActive ? "btn-warning" : "btn-success")">
+                                        @(job.IsActive ? "Durdur" : "Başlat")
+                                    </button>
+                                </form>
+                                <form asp-action="Delete" asp-route-id="@job.Id" method="post" class="d-inline" onsubmit="return confirm('Silmek istediğinize emin misiniz?')">
+                                    <button type="submit" class="btn btn-sm btn-danger">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

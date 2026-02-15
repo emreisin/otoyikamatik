@@ -9,3 +9,4 @@
 /Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/refint/SmartController.Shared.dll
 /Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/SmartController.Shared.pdb
 /Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/ref/SmartController.Shared.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Shared/obj/Debug/net8.0/SmartController.Shared.sourcelink.json

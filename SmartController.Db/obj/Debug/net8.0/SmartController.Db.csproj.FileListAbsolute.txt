@@ -15,3 +15,4 @@
 /Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.pdb
 /Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.genruntimeconfig.cache
 /Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/ref/SmartController.Db.dll
+/Users/emreisin/Desktop/otoyikamatik/SmartController.Db/obj/Debug/net8.0/SmartController.Db.sourcelink.json

@@ -1,0 +1,53 @@
+@{ ViewData["Title"] = "Yeni Rapor"; }
+
+<div class="container-fluid">
+    <h2 class="mb-4">Yeni Rapor Oluştur</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Şube</label>
+                            <select name="subeId" class="form-select" required>
+                                <option value="">Şube Seçin</option>
+                                @foreach (var sube in ViewBag.Subeler as List<SmartController.Db.Entities.Sube>)
+                                {
+                                    <option value="@sube.Id">@sube.Ad</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Rapor Tipi</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="reportType" id="typeX" value="0" checked>
+                                <label class="form-check-label" for="typeX">
+                                    X Raporu (Anlık durum - sayaçlar sıfırlanmaz)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="reportType" id="typeZ" value="1">
+                                <label class="form-check-label text-danger" for="typeZ">
+                                    Z Raporu (Gün sonu - sayaçlar sıfırlanır)
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Rapor Oluştur</button>
+                        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5>Rapor Tipleri</h5>
+                    <hr>
+                    <p><strong>X Raporu:</strong> Anlık durum raporu alır. Sayaçlar sıfırlanmaz, sadece mevcut değerler kaydedilir. Gün içinde istediğiniz kadar alabilirsiniz.</p>
+                    <p><strong>Z Raporu:</strong> Gün sonu raporu alır. Mevcut değerler kaydedildikten sonra tüm cihazlara sayaç sıfırlama komutu (CT) gönderilir.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
